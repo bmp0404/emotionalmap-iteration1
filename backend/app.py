@@ -15,18 +15,18 @@ OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 MODEL = "gpt-3.5-turbo"
 
 def load_system_prompts():
-    with open('system_prompts.json', 'r') as f:
+    with open('system_prompts.json', 'r', encoding='utf-8') as f:
         return json.load(f)
 
 def load_user_data():
     try:
-        with open('user_data.json', 'r') as f:
+        with open('user_data.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except FileNotFoundError:
         return {"emotional_archetype": None}
 
 def save_user_data(data):
-    with open('user_data.json', 'w') as f:
+    with open('user_data.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2)
 
 @app.route('/api/chat', methods=['POST'])
@@ -74,7 +74,7 @@ def completions():
         choice = resp.json()["choices"][0]["message"]
         
         # If this is emotional_map chat, try to extract and save archetype
-        if chat_type == "emotional_map" and "ARCHETYPE_CODE" in choice["content"].lower():
+        if chat_type == "emotional_map" and "archetype_code" in choice["content"].lower():
             user_data = load_user_data()
             user_data["emotional_archetype"] = choice["content"]
             save_user_data(user_data)

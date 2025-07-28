@@ -18,7 +18,7 @@ const TherapyChat = ({ topic, onNavigate }) => {
             'Patterns': [
                 { type: 'question', text: 'Understanding our patterns helps us grow. What recurring theme do you notice in your life?' }
             ],
-            'Question': [
+            'General': [
                 { type: 'question', text: 'I\'m here to help with whatever is on your mind. What would you like to explore today?' }
             ]
         };

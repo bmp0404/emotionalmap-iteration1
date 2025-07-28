@@ -86,11 +86,11 @@ const ChatInterface = ({
             <div className="max-w-2xl mx-auto">
                 <h1 className="text-3xl font-light text-gray-800 text-center mb-8">{title}</h1>
 
-                <div className="bg-white rounded-3xl shadow-lg p-6 mb-6 h-96 overflow-y-auto">
+                <div className="bg-white rounded-3xl shadow-lg p-6 mb-6 h-144 overflow-y-auto">
                     <div className="space-y-4">
                         {messages.map((message, index) => (
                             <div key={index} className={`flex ${message.type === 'answer' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl transition-all duration-300 ${message.type === 'answer'
+                                <div className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl transition-all duration-300 whitespace-pre-wrap ${message.type === 'answer'
                                     ? 'bg-blue-500 text-white rounded-br-md'
                                     : 'bg-gray-100 text-gray-800 rounded-bl-md'
                                     }`}>
