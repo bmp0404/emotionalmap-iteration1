@@ -7,19 +7,19 @@ const TherapyChat = ({ topic, onNavigate }) => {
     const getInitialMessages = (topic) => {
         const messageMap = {
             'Life': [
-                { type: 'question', text: 'Let\'s explore your life journey. What aspect of your daily life brings you the most joy?' }
+                { type: 'question', text: 'This space is for exploring everyday life—habits, energy, purpose. To start, tell me one part of your daily routine that feels either great or draining.' }
             ],
             'Relationships': [
-                { type: 'question', text: 'Relationships are at the heart of our well-being. What does meaningful connection mean to you?' }
+                { type: 'question', text: 'Here we focus on your relationships and connection style. Begin by sharing a snapshot of your closest relationship—just a sentence or two is perfect.' }
             ],
             'Work': [
-                { type: 'question', text: 'Your work life shapes much of your identity. What motivates you most in your professional pursuits?' }
+                { type: 'question', text: 'Use this chat to look at work or study challenges, motivation, and growth. Kick things off by mentioning what\'s most on your mind about your job or classes today.' }
             ],
             'Patterns': [
-                { type: 'question', text: 'Understanding our patterns helps us grow. What recurring theme do you notice in your life?' }
+                { type: 'question', text: 'This conversation digs into recurring patterns and early influences. Start by naming a childhood rule or role you think still affects you now.' }
             ],
             'General': [
-                { type: 'question', text: 'I\'m here to help with whatever is on your mind. What would you like to explore today?' }
+                { type: 'question', text: 'A flexible chat for anything that doesn\'t fit the other topics. Simply describe what you\'d like to talk about, and we\'ll take it from there.' }
             ]
         };
 

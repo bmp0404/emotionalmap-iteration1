@@ -12,7 +12,7 @@ const ChatInterface = ({
     chatType = "emotional_map",
 }) => {
     const [messages, setMessages] = useState(initialMessages.length > 0 ? initialMessages : [
-        { type: 'question', text: 'To begin, type "Hello, let us begin' },
+        { type: 'question', text: 'Welcome to the Emotional Map assessment! We’ll walk through 36 quick questions (rated 1‑5) to discover your core emotional archetype. Type “Ready” when you’d like to begin.' },
     ]);
     const [inputValue, setInputValue] = useState('');
     const [archetypeSaved, setArchetypeSaved] = useState(false);
@@ -81,7 +81,7 @@ const ChatInterface = ({
                 if (response.ok) {
                     const data = await response.json();
                     setMessages(prev => [...prev, { type: 'question', text: data.response }]);
-                    
+
                     // Check if archetype was saved after receiving response
                     if (chatType === "emotional_map" && data.response.toLowerCase().includes("archetype_code")) {
                         setArchetypeSaved(true);
