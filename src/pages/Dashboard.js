@@ -45,7 +45,7 @@ const Dashboard = ({ onNavigate }) => {
             </div>
 
             <button
-                onClick={() => navigateToTherapyChat('Question')}
+                onClick={() => navigateToTherapyChat('General')}
                 className="w-full py-4 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-2xl hover:from-blue-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 font-medium mb-4 flex items-center justify-center gap-2"
             >
                 <HelpCircle size={20} />

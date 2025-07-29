@@ -142,7 +142,7 @@ const ChatInterface = ({
                         </button>
                     </div>
 
-                    {showResultsButton && archetypeSaved && (
+                    {((showResultsButton && archetypeSaved) || chatType.startsWith('therapy_')) && (
                         <button
                             onClick={onResultsClick}
                             className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-medium"
