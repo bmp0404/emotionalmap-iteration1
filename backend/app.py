@@ -90,6 +90,13 @@ def get_archetype():
     user_data = load_user_data()
     return jsonify(emotional_archetype=user_data.get("emotional_archetype"))
 
+@app.route('/api/archetype/saved', methods=['GET'])
+def is_archetype_saved():
+    user_data = load_user_data()
+    archetype = user_data.get("emotional_archetype")
+    has_archetype = archetype is not None and archetype.strip() != ""
+    return jsonify(archetype_saved=has_archetype)
+
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

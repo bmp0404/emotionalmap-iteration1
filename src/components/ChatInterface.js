@@ -12,10 +12,10 @@ const ChatInterface = ({
     chatType = "emotional_map",
 }) => {
     const [messages, setMessages] = useState(initialMessages.length > 0 ? initialMessages : [
-        { type: 'question', text: 'Question 1: Given the choice of anyone in the world, whom would you want as a dinner guest?' },
-        { type: 'answer', text: 'User answer placeholder' }
+        { type: 'question', text: 'To begin, type "Hello, let us begin' },
     ]);
     const [inputValue, setInputValue] = useState('');
+    const [archetypeSaved, setArchetypeSaved] = useState(false);
     const chatEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -25,6 +25,23 @@ const ChatInterface = ({
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+        if (chatType === "emotional_map") {
+            const checkArchetypeSaved = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/api/archetype/saved');
+                    if (response.ok) {
+                        const data = await response.json();
+                        setArchetypeSaved(data.archetype_saved);
+                    }
+                } catch (error) {
+                    console.error('Error checking archetype status:', error);
+                }
+            };
+            checkArchetypeSaved();
+        }
+    }, [chatType]);
 
     const handleSendMessage = async () => {
         if (inputValue.trim()) {
@@ -64,6 +81,11 @@ const ChatInterface = ({
                 if (response.ok) {
                     const data = await response.json();
                     setMessages(prev => [...prev, { type: 'question', text: data.response }]);
+                    
+                    // Check if archetype was saved after receiving response
+                    if (chatType === "emotional_map" && data.response.toLowerCase().includes("archetype_code")) {
+                        setArchetypeSaved(true);
+                    }
                 } else {
                     const errorData = await response.json();
                     setMessages(prev => [...prev, { type: 'question', text: `Error: ${errorData.error || 'Something went wrong'}` }]);
@@ -120,7 +142,7 @@ const ChatInterface = ({
                         </button>
                     </div>
 
-                    {showResultsButton && (
+                    {showResultsButton && archetypeSaved && (
                         <button
                             onClick={onResultsClick}
                             className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-medium"
