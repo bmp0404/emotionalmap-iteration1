@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 
 const ComparisonWeb = ({ onNavigate }) => {
-    // Mock data - you can move this to a data file or fetch from API
+    // mock data 
     const friendsData = [
         { id: 1, name: 'Alex', archetype: 'Gentle Explorer', x: 150, y: 100, compatibility: 85 },
         { id: 2, name: 'Sam', archetype: 'Creative Dreamer', x: 300, y: 150, compatibility: 72 },
@@ -29,7 +29,7 @@ const ComparisonWeb = ({ onNavigate }) => {
                     <circle cx="200" cy="200" r="30" fill="#3B82F6" className="drop-shadow-lg" />
                     <text x="200" y="206" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">You</text>
 
-                    {/* Friend nodes and connections */}
+                    {/* friend nodes and connections */}
                     {friendsData.map((friend) => (
                         <g key={friend.id}>
                             <line

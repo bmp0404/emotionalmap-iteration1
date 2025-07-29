@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 
 const GlobalComparison = ({ onNavigate }) => {
-    // Mock data - you can move this to a data file or fetch from API
+    // mock data 
     const archetypeStats = [
         { name: 'Shy Cat', percentage: 15, color: 'bg-purple-400' },
         { name: 'Gentle Explorer', percentage: 22, color: 'bg-blue-400' },

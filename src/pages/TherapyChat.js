@@ -3,7 +3,7 @@ import React from 'react';
 import ChatInterface from '../components/ChatInterface';
 
 const TherapyChat = ({ topic, onNavigate }) => {
-    // You can customize initial messages based on the topic
+    // customize initial messages based on the therapy chat topic
     const getInitialMessages = (topic) => {
         const messageMap = {
             'Life': [

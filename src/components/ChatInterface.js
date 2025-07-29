@@ -26,6 +26,7 @@ const ChatInterface = ({
         scrollToBottom();
     }, [messages]);
 
+    // change this to make archetype status check more generic ( || chatType.startsWith('therapy_'))
     useEffect(() => {
         if (chatType === "emotional_map") {
             const checkArchetypeSaved = async () => {
@@ -55,7 +56,7 @@ const ChatInterface = ({
                     content: msg.text
                 }));
 
-                // Load emotional archetype if this is a therapy chat
+                // Load archetype if therapy chat
                 let emotional_archetype = null;
                 if (chatType.startsWith('therapy_')) {
                     const archetypeResponse = await fetch('http://localhost:5000/api/archetype');

@@ -40,15 +40,13 @@ def completions():
     if not user_prompt:
         return jsonify(error="Prompt is required"), 400
 
-    # Load system prompts and get the appropriate one
     system_prompts = load_system_prompts()
     system_prompt = system_prompts.get(chat_type, system_prompts["emotional_map"])
     
-    # Add emotional archetype context if provided
     if emotional_archetype:
         system_prompt += f"\n\nUser's Emotional Archetype: {emotional_archetype}"
 
-    # build the message list
+    # message list
     messages = [{"role": "system", "content": system_prompt}]
     for msg in conversation_history:
         role = msg.get("role")
@@ -57,7 +55,6 @@ def completions():
             messages.append({"role": role, "content": content})
     messages.append({"role": "user", "content": user_prompt})
 
-    # call OpenAI
     payload = {
         "model": MODEL,
         "messages": messages
@@ -73,7 +70,7 @@ def completions():
         resp.raise_for_status()
         choice = resp.json()["choices"][0]["message"]
         
-        # If this is emotional_map chat, try to extract and save archetype
+        # extract and save archetype
         if chat_type == "emotional_map" and "archetype_code" in choice["content"].lower():
             user_data = load_user_data()
             user_data["emotional_archetype"] = choice["content"]
