@@ -31,7 +31,7 @@ const ChatInterface = ({
         if (chatType === "emotional_map") {
             const checkArchetypeSaved = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/api/archetype/saved');
+                    const response = await fetch('https://9v6m81rv9e.execute-api.us-east-2.amazonaws.com/prod/api/archetype/saved');
                     if (response.ok) {
                         const data = await response.json();
                         setArchetypeSaved(data.archetype_saved);
@@ -59,14 +59,14 @@ const ChatInterface = ({
                 // Load archetype if therapy chat
                 let emotional_archetype = null;
                 if (chatType.startsWith('therapy_')) {
-                    const archetypeResponse = await fetch('http://localhost:5000/api/archetype');
+                    const archetypeResponse = await fetch('https://9v6m81rv9e.execute-api.us-east-2.amazonaws.com/prod/api/archetype');
                     if (archetypeResponse.ok) {
                         const archetypeData = await archetypeResponse.json();
                         emotional_archetype = archetypeData.emotional_archetype;
                     }
                 }
 
-                const response = await fetch('http://localhost:5000/api/chat', {
+                const response = await fetch('https://9v6m81rv9e.execute-api.us-east-2.amazonaws.com/prod/api/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -101,6 +101,29 @@ const ChatInterface = ({
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleSendMessage();
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch('https://9v6m81rv9e.execute-api.us-east-2.amazonaws.com/prod/api/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const json = response.json();
+            if (response.ok) {
+                setArchetypeSaved(false);
+                setMessages([]);
+                setInputValue('');
+                console.log('User data deleted successfully');
+            } else {
+                alert(json.error || 'Delete failed');
+            }
+        } catch (error) {
+            console.error('Error deleting user data', error);
+            alert('Error deleting user data');
         }
     };
 
@@ -144,14 +167,25 @@ const ChatInterface = ({
                     </div>
 
                     {((showResultsButton && archetypeSaved) || chatType.startsWith('therapy_')) && (
-                        <button
-                            onClick={onResultsClick}
-                            className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-medium"
-                        >
-                            {resultsButtonText}
-                        </button>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={onResultsClick}
+                                className="flex-1 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-medium"
+                            >
+                                {resultsButtonText}
+                            </button>
+                            {chatType === "emotional_map" && (
+                                <button
+                                    onClick={handleDelete}
+                                    className="flex-1 py-4 !bg-red-500 text-white rounded-full hover:bg-red-800 transition-all duration-300 transform hover:scale-105 font-medium"
+                                >
+                                    Delete My Data
+                                </button>
+                            )}
+                        </div>
                     )}
                 </div>
+
             </div>
         </div>
     );
